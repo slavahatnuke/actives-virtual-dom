@@ -15,14 +15,16 @@ box.connect('CounterState', 'Counter')
     })
     .actions(({Counter}) => {
         return {
-            onUp: () => Counter.up()
+            onUp: () => Counter.up(),
+            onDown: () => Counter.down()
         };
     });
+
+box.add('CounterView', ({CounterState}) => connect(CounterState)(CounterView));
 
 setInterval(function () {
     box.Counter.up();
 }, 1000);
 
-box.add('CounterView', ({CounterState}) => connect(CounterState)(CounterView));
 document.getElementById('app').appendChild(box.CounterView);
 
