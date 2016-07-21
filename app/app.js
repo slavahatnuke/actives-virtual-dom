@@ -3,21 +3,32 @@ var connect = require('../index');
 
 var Counter = require('./Counter');
 var CounterView = require('./CounterView');
+var CounterButtonView = require('./CounterButtonView');
 
 var box = Box.create();
 box.add('Counter', () => new Counter());
 
-box.connect('CounterState', 'Counter')
+box.connect('CounterButtonsState', 'Counter')
     .state(({Counter}) => {
         return {
-            counter: Counter.counter
-        }
+            x: Counter.get()
+        };
     })
     .actions(({Counter}) => {
         return {
-            onUp: () => Counter.up(),
+            onUp: () => {
+                Counter.up();
+            },
             onDown: () => Counter.down()
         };
+    });
+
+box.connect('CounterState', ['Counter', 'CounterButtonsState'])
+    .state(({CounterButtonsState, Counter}) => {
+        return {
+            counter: Counter.get(),
+            buttons: CounterButtonView(CounterButtonsState)
+        }
     });
 
 box.add('CounterView', ({CounterState}) => connect(CounterState)(CounterView));
