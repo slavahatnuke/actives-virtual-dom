@@ -1,10 +1,10 @@
+var Box = require('actives').Box;
 var connect = require('../index');
 
 var Counter = require('./Counter');
 var CounterView = require('./CounterView');
 
-var box = require('actives').Box.create();
-
+var box = Box.create();
 box.add('Counter', () => new Counter());
 
 box.connect('CounterState', 'Counter')

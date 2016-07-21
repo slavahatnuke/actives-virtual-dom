@@ -10,6 +10,8 @@ module.exports = function CounterView({counter, onUp, onDown}) {
             onclick: onDown
         }, ['down']),
 
+        h('h3', {}, [counter]),
+
         h('div', {
             style: {
                 textAlign: 'center',
@@ -19,6 +21,5 @@ module.exports = function CounterView({counter, onUp, onDown}) {
                 height: (100 + counter) + 'px'
             }
         }, [String(counter)])
-
     ]);
 };
