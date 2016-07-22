@@ -1,6 +1,6 @@
 {
   "name": "actives-virtual-dom",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "actives - virtual-dom bridge",
   "main": "index.js",
   "dependencies": {},
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/slavahatnuke/actives-virtual-dom#readme",
   "devDependencies": {
-    "actives": "0.0.6",
+    "actives": "0.0.7",
     "babel": "^6.5.2",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
