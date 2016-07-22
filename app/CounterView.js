@@ -1,8 +1,21 @@
 var h = require('virtual-dom/h');
 
-module.exports = function CounterView({counter, buttons}) {
+module.exports = function CounterView({counter, onUp, onDown, onToggle}) {
     return h('div', {}, [
-        buttons,
+
+        h('div', {}, [
+            h('button', {
+                onclick: onUp
+            }, ['up']),
+
+            h('button', {
+                onclick: onDown
+            }, ['down']),
+
+            h('button', {
+                onclick: onToggle
+            }, ['toggle'])
+        ]),
 
         h('h3', {}, [counter]),
 

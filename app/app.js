@@ -3,39 +3,27 @@ var connect = require('../index');
 
 var Counter = require('./Counter');
 var CounterView = require('./CounterView');
-var CounterButtonView = require('./CounterButtonView');
+var CounterService = require('./CounterService');
 
 var box = Box.create();
 box.add('Counter', () => new Counter());
+box.add('CounterService', ({Counter}) => new CounterService(Counter));
 
-box.connect('CounterButtonsState', 'Counter')
+box.connect('CounterState', 'Counter')
     .state(({Counter}) => {
         return {
-            x: Counter.get()
-        };
-    })
-    .actions(({Counter}) => {
-        return {
-            onUp: () => {
-                Counter.up();
-            },
-            onDown: () => Counter.down()
-        };
-    });
-
-box.connect('CounterState', ['Counter', 'CounterButtonsState'])
-    .state(({CounterButtonsState, Counter}) => {
-        return {
-            counter: Counter.get(),
-            buttons: CounterButtonView(CounterButtonsState)
+            counter: Counter.get()
         }
+    })
+    .actions(({Counter, CounterService}) => {
+        return {
+            onUp: () => Counter.up(),
+            onDown: () => Counter.down(),
+            onToggle: () => CounterService.toggle()
+        };
     });
 
 box.add('CounterView', ({CounterState}) => connect(CounterState)(CounterView));
-
-setInterval(function () {
-    box.Counter.up();
-}, 1000);
 
 document.getElementById('app').appendChild(box.CounterView);
 

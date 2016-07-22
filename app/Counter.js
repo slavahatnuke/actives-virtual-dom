@@ -6,6 +6,7 @@ module.exports = function Counter() {
     }
 
     this.up = function () {
+        console.log('up');
         this.counter++;
     };
 
